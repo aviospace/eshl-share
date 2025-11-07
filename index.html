@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Easy Shopping List - Opening...</title>
+    
+    <!-- Open Graph Meta Tags for Rich Previews -->
+    <meta property="og:title" content="Easy Shopping List">
+    <meta property="og:description" content="Add products to your shopping list">
+    <meta property="og:image" content="https://aviospace.github.io/eshl-share/logo.png">
+    <meta property="og:url" content="https://aviospace.github.io/eshl-share/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Easy Shopping List">
+    <meta name="twitter:description" content="Add products to your shopping list">
+    <meta name="twitter:image" content="https://aviospace.github.io/eshl-share/logo.png">
+    
     <style>
         body {
             margin: 0;
@@ -82,7 +96,19 @@
         const urlParams = new URLSearchParams(window.location.search);
         const payload = urlParams.get('p');
         
+        // Update meta tags dynamically with product info
         if (payload) {
+            const productName = decodeURIComponent(payload);
+            const description = `Add "${productName}" to your shopping list`;
+            
+            // Update meta tags for rich preview
+            document.querySelector('meta[property="og:description"]').content = description;
+            document.querySelector('meta[name="twitter:description"]').content = description;
+            document.querySelector('meta[property="og:url"]').content = window.location.href;
+            
+            // Update page title
+            document.title = `Add ${productName} - Easy Shopping List`;
+            
             // Create deep link
             const deepLink = `eshl://share?payload=${encodeURIComponent(payload)}`;
             
